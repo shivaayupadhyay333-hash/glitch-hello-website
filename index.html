@@ -1,72 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- 
-      This is an HTML comment
-      You can write text in a comment and the content won't be visible in the page
-    -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eicher Sure Liquidation App</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f9; }
+        .container { max-width: 400px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #e31837; font-weight: 800; margin-bottom: 5px; }
+        h4 { text-align: center; color: #555; margin-top: 0px; margin-bottom: 25px; }
+        label { font-weight: bold; margin-top: 10px; display: block; color: #333; }
+        input { width: 100%; padding: 12px; margin: 5px 0 15px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 15px; }
+        button { width: 100%; padding: 14px; background-color: #25D366; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background-color: #128C7E; }
+    </style>
+</head>
+<body>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="https://glitch.com/favicon.ico" />
+<div class="container">
+    <h2>Eicher Sure Liquidation</h2>
+    <h4>Managed by Shivansh Upadhyay</h4>
+    
+    <label for="model">Truck Model</label>
+    <input type="text" id="model" placeholder="Ex: Eicher Pro 2049" required>
+    
+    <label for="year">Manufacturing Year</label>
+    <input type="number" id="year" placeholder="Ex: 2019" required>
+    
+    <label for="kms">KMs Driven</label>
+    <input type="text" id="kms" placeholder="Ex: 85,000" required>
+    
+    <label for="price">Expected Price (₹)</label>
+    <input type="text" id="price" placeholder="Ex: 6,50,000" required>
+    
+    <label for="remarks">Condition / Remarks</label>
+    <input type="text" id="remarks" placeholder="Ex: Good condition, valid papers">
+    
+    <button onclick="shareDetails()">Share Details 🚀</button>
+</div>
 
-    <!--
-      This is the page head - it contains info the browser uses
-      Like the title, which appears on the browser tab but not inside the page
-      Further down you'll see the content that displays in the page
-    -->
-    <title>Hello World!</title>
+<script>
+    function shareDetails() {
+        // Form se details lena
+        const model = document.getElementById('model').value;
+        const year = document.getElementById('year').value;
+        const kms = document.getElementById('kms').value;
+        const price = document.getElementById('price').value;
+        const remarks = document.getElementById('remarks').value;
 
-    <!-- The website stylesheet -->
-    <link rel="stylesheet" href="/style.css" />
+        // Validation: Check karna ki zaruri details bhari hain ya nahi
+        if(!model || !year || !price) {
+            alert("Kripya Model, Year aur Price zaroor bharein!");
+            return;
+        }
 
-    <!-- The website JavaScript file -->
-    <script src="/script.js" defer></script>
-  </head>
-  <body>
-    <!--
-      The body includes the content you see in the page
-      Each element is defined using tags, like this <div></div>
-      The attributes like class="wrapper" let us style elements in the CSS
-    -->
-    <div class="wrapper">
-      <div class="content" role="main">
-        <h1 class="title">Hello World!</h1>
-        <img
-          src="https://cdn.glitch.com/a9975ea6-8949-4bab-addb-8a95021dc2da%2Fillustration.svg?v=1618177344016"
-          class="illustration"
-          alt="Editor illustration"
-          title="Click the image!"
-        />
-        <div class="instructions">
-          <h2>Using this project</h2>
-          <p>
-            This is the Glitch <strong>Hello Website</strong> project. You can
-            use it to build your own site. Check out the code in the editor and open
-            the <span class="fileopener" data-file="TODO.md" data-line="0"
-              >TODO</span> for next steps!
-          </p>
-          <!--  🚧 TODO: ADD BUTTON HERE -->
+        // WhatsApp / Facebook ke liye attractive message format tayar karna
+        const message = `🚚 *FOR SALE: USED COMMERCIAL VEHICLE* 🚚\n\n` +
+                        `🔹 *Model:* ${model}\n` +
+                        `📅 *Year:* ${year}\n` +
+                        `🛣️ *KMs Driven:* ${kms}\n` +
+                        `💰 *Price:* ₹${price}\n` +
+                        `📝 *Remarks:* ${remarks}\n\n` +
+                        `📞 Contact for deal and more details!`;
 
-          <!-- Once you've added the button from TODO.md, click it in the page -->
-          <!-- Check out the function in script.js to see how it works -->
-        </div>
-      </div>
-    </div>
-    <!-- The footer holds our remix button — you can keep or delete it ✂ -->
-    <footer class="footer">
-      <div class="links"></div>
-      <a
-        class="btn--remix"
-        target="_top"
-        href="https://glitch.com/edit/#!/remix/glitch-hello-website"
-      >
-        <img
-          src="https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2FLogo_Color.svg?v=1618199565140"
-          alt=""
-        />
-        Remix on Glitch
-      </a>
-    </footer>
-  </body>
+        // Mobile ka asli Share Menu kholna
+        if (navigator.share) {
+            navigator.share({
+                title: 'Used Truck For Sale',
+                text: message
+            }).then(() => {
+                console.log('Details shared successfully!');
+            }).catch(console.error);
+        } else {
+            // Agar laptop/computer par use kar rahe hain jahan share menu nahi hota
+            navigator.clipboard.writeText(message);
+            alert("Details copy ho gayi hain! Aap ise ab WhatsApp ya Facebook par paste kar sakte hain.");
+        }
+    }
+</script>
+
+</body>
 </html>
