@@ -1,72 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- 
-      This is an HTML comment
-      You can write text in a comment and the content won't be visible in the page
-    -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eicher Sure Liquidation App</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 15px; background-color: #f4f4f9; }
+        .container { max-width: 450px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #e31837; font-weight: 800; margin-bottom: 5px; }
+        h4 { text-align: center; color: #555; margin-top: 0px; margin-bottom: 20px; }
+        .form-row { display: flex; justify-content: space-between; gap: 10px; }
+        .form-group { flex: 1; }
+        label { font-weight: bold; margin-top: 8px; display: block; color: #333; font-size: 13px; }
+        input, select { width: 100%; padding: 9px; margin: 4px 0 8px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px; }
+        
+        .platforms-section { margin-top: 15px; border-top: 2px solid #eee; padding-top: 15px; }
+        .platform-btn { width: 100%; padding: 12px; margin-bottom: 8px; border: none; border-radius: 5px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: white; transition: 0.2s; }
+        .whatsapp { background-color: #25D366; }
+        .facebook { background-color: #1877F2; }
+        .linkedin { background-color: #0A66C2; }
+        .olx { background-color: #002f34; }
+        .telegram { background-color: #229ED9; }
+        
+        .platform-btn.done { background-color: #6c757d !important; opacity: 0.8; }
+        .reset-btn { width: 100%; padding: 10px; background-color: #dc3545; color: white; border: none; border-radius: 5px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="https://glitch.com/favicon.ico" />
-
-    <!--
-      This is the page head - it contains info the browser uses
-      Like the title, which appears on the browser tab but not inside the page
-      Further down you'll see the content that displays in the page
-    -->
-    <title>Hello World!</title>
-
-    <!-- The website stylesheet -->
-    <link rel="stylesheet" href="/style.css" />
-
-    <!-- The website JavaScript file -->
-    <script src="/script.js" defer></script>
-  </head>
-  <body>
-    <!--
-      The body includes the content you see in the page
-      Each element is defined using tags, like this <div></div>
-      The attributes like class="wrapper" let us style elements in the CSS
-    -->
-    <div class="wrapper">
-      <div class="content" role="main">
-        <h1 class="title">Hello World!</h1>
-        <img
-          src="https://cdn.glitch.com/a9975ea6-8949-4bab-addb-8a95021dc2da%2Fillustration.svg?v=1618177344016"
-          class="illustration"
-          alt="Editor illustration"
-          title="Click the image!"
-        />
-        <div class="instructions">
-          <h2>Using this project</h2>
-          <p>
-            This is the Glitch <strong>Hello Website</strong> project. You can
-            use it to build your own site. Check out the code in the editor and open
-            the <span class="fileopener" data-file="TODO.md" data-line="0"
-              >TODO</span> for next steps!
-          </p>
-          <!--  🚧 TODO: ADD BUTTON HERE -->
-
-          <!-- Once you've added the button from TODO.md, click it in the page -->
-          <!-- Check out the function in script.js to see how it works -->
+<div class="container">
+    <h2>Eicher Sure Liquidation</h2>
+    <h4>Managed by Shivansh Upadhyay</h4>
+    
+    <label>Vehicle Number (Reg. No)</label>
+    <input type="text" id="regNo" placeholder="Ex: UP32 AB 1234" required>
+    
+    <div class="form-row">
+        <div class="form-group">
+            <label>Make</label>
+            <input type="text" id="make" placeholder="Ex: Eicher" required>
         </div>
-      </div>
+        <div class="form-group">
+            <label>Model</label>
+            <input type="text" id="model" placeholder="Ex: Pro 2049" required>
+        </div>
     </div>
-    <!-- The footer holds our remix button — you can keep or delete it ✂ -->
-    <footer class="footer">
-      <div class="links"></div>
-      <a
-        class="btn--remix"
-        target="_top"
-        href="https://glitch.com/edit/#!/remix/glitch-hello-website"
-      >
-        <img
-          src="https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2FLogo_Color.svg?v=1618199565140"
-          alt=""
-        />
-        Remix on Glitch
-      </a>
-    </footer>
-  </body>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Mfg Year</label>
+            <input type="number" id="mfg" placeholder="Ex: 2019">
+        </div>
+        <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" id="qty" placeholder="Ex: 1" value="1">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Tyre %</label>
+            <input type="text" id="tyre" placeholder="Ex: 70%">
+        </div>
+        <div class="form-group">
+            <label>Body Type</label>
+            <input type="text" id="body" placeholder="Ex: Open / Container">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>HPA (Finance)</label>
+            <input type="text" id="hpa" placeholder="Ex: HDFC / None">
+        </div>
+        <div class="form-group">
+            <label>GST</label>
+            <select id="gst">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+    </div>
+
+    <label>Location</label>
+    <input type="text" id="location" placeholder="Ex: Lucknow">
+
+    <label>Insurance / Tax / Permit Status</label>
+    <input type="text" id="rtoDetails" placeholder="Ex: Valid till Dec 2026">
+
+    <div class="platforms-section">
+        <label style="margin-bottom: 10px; color: #e31837; font-size: 15px;">Share on Platforms (Click to Copy & Post):</label>
+        
+        <button class="platform-btn whatsapp" onclick="shareOnPlatform('whatsapp', this)">
+            <span>💬 Share on WhatsApp</span> <span class="status"></span>
+        </button>
+        
+        <button class="platform-btn facebook" onclick="shareOnPlatform('facebook', this)">
+            <span>👥 Share on Facebook Marketplace</span> <span class="status"></span>
+        </button>
+
+        <button class="platform-btn olx" onclick="shareOnPlatform('olx', this)">
+            <span>🏷️ Share on OLX / Commercial</span> <span class="status"></span>
+        </button>
+
+        <button class="platform-btn linkedin" onclick="shareOnPlatform('linkedin', this)">
+            <span>💼 Share on LinkedIn</span> <span class="status"></span>
+        </button>
+
+        <button class="platform-btn telegram" onclick="shareOnPlatform('telegram', this)">
+            <span>✈️ Share on Telegram Group</span> <span class="status"></span>
+        </button>
+
+        <button class="reset-btn" onclick="resetForm()">🔄 Reset / Clear All Ticks</button>
+    </div>
+</div>
+
+<script>
+    function getMessage() {
+        const regNo = document.getElementById('regNo').value;
+        const make = document.getElementById('make').value;
+        const model = document.getElementById('model').value;
+        const mfg = document.getElementById('mfg').value;
+        const qty = document.getElementById('qty').value;
+        const tyre = document.getElementById('tyre').value;
+        const body = document.getElementById('body').value;
+        const hpa = document.getElementById('hpa').value;
+        const gst = document.getElementById('gst').value;
+        const location = document.getElementById('location').value;
+        const rtoDetails = document.getElementById('rtoDetails').value;
+
+        if(!regNo || !make || !model) {
+            alert("Kripya Make, Model aur Reg No. zaroor bharein!");
+            return null;
+        }
+
+        return `🚚 *USED COMMERCIAL VEHICLE FOR SALE* 🚚\n\n` +
+               `🔹 *Make:* ${make}\n` +
+               `🔹 *Model:* ${model}\n` +
+               `📅 *Mfg Year:* ${mfg}\n` +
+               `🔖 *Registration:* ${regNo}\n` +
+               `📦 *Quantity:* ${qty}\n` +
+               `🛞 *Tyre Condition:* ${tyre}\n` +
+               `🚛 *Body:* ${body}\n` +
+               `🏦 *HPA:* ${hpa}\n` +
+               `🧾 *GST:* ${gst}\n` +
+               `📍 *Location:* ${location}\n` +
+               `📄 *Docs (Ins/Tax/Permit):* ${rtoDetails}\n\n` +
+               `📞 Contact for deal: Shivansh Upadhyay`;
+    }
+
+    function shareOnPlatform(platform, btnElement) {
+        const message = getMessage();
+        if (!message) return;
+
+        // Clipboard mein text copy karna taaki wahan paste kiya ja sake
+        navigator.clipboard.writeText(message).then(() => {
+            // Button par Blue/Green tick lagana
+            btnElement.classList.add('done');
+            btnElement.querySelector('.status').innerHTML = '✅ Shared';
+
+            // Alag-alag app ya website kholna
+            if (platform === 'whatsapp') {
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`, '_blank');
+            } else if (platform === 'facebook') {
+                alert("Details Copy ho gayi hain! Ab Facebook Marketplace app khul rahi hai, wahan paste kar dein.");
+                window.open('https://www.facebook.com/marketplace/', '_blank');
+            } else if (platform === 'olx') {
+                alert("Details Copy ho gayi hain! Ab OLX app/site khul rahi hai, wahan paste kar dein.");
+                window.open('https://www.olx.in', '_blank');
+            } else if (platform === 'linkedin') {
+                window.open('https://www.linkedin.com/feed/', '_blank');
+            } else if (platform === 'telegram') {
+                window.open('https://t.me/', '_blank');
+            }
+        }).catch(err => {
+            alert("Copy karne mein kuch problem aayi.");
+        });
+    }
+
+    function resetForm() {
+        document.querySelectorAll('.platform-btn').forEach(btn => {
+            btn.classList.remove('done');
+            btn.querySelector('.status').innerHTML = '';
+        });
+        alert("Saare ticks reset ho gaye hain. Nayi gaadi ki detail daal sakte hain!");
+    }
+</script>
+
+</body>
 </html>
