@@ -1,72 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- 
-      This is an HTML comment
-      You can write text in a comment and the content won't be visible in the page
-    -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eicher Sure Liquidation App</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 15px; background-color: #f4f4f9; }
+        .container { max-width: 450px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #e31837; font-weight: 800; margin-bottom: 5px; }
+        h4 { text-align: center; color: #555; margin-top: 0px; margin-bottom: 25px; }
+        .form-row { display: flex; justify-content: space-between; gap: 10px; }
+        .form-group { flex: 1; }
+        label { font-weight: bold; margin-top: 10px; display: block; color: #333; font-size: 14px; }
+        input, select { width: 100%; padding: 10px; margin: 5px 0 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 14px; }
+        .photo-upload { border: 2px dashed #e31837; padding: 15px; text-align: center; margin-bottom: 15px; border-radius: 5px; background: #fff5f5; }
+        button { width: 100%; padding: 14px; background-color: #25D366; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        button:hover { background-color: #128C7E; }
+    </style>
+</head>
+<body>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="https://glitch.com/favicon.ico" />
-
-    <!--
-      This is the page head - it contains info the browser uses
-      Like the title, which appears on the browser tab but not inside the page
-      Further down you'll see the content that displays in the page
-    -->
-    <title>Hello World!</title>
-
-    <!-- The website stylesheet -->
-    <link rel="stylesheet" href="/style.css" />
-
-    <!-- The website JavaScript file -->
-    <script src="/script.js" defer></script>
-  </head>
-  <body>
-    <!--
-      The body includes the content you see in the page
-      Each element is defined using tags, like this <div></div>
-      The attributes like class="wrapper" let us style elements in the CSS
-    -->
-    <div class="wrapper">
-      <div class="content" role="main">
-        <h1 class="title">Hello World!</h1>
-        <img
-          src="https://cdn.glitch.com/a9975ea6-8949-4bab-addb-8a95021dc2da%2Fillustration.svg?v=1618177344016"
-          class="illustration"
-          alt="Editor illustration"
-          title="Click the image!"
-        />
-        <div class="instructions">
-          <h2>Using this project</h2>
-          <p>
-            This is the Glitch <strong>Hello Website</strong> project. You can
-            use it to build your own site. Check out the code in the editor and open
-            the <span class="fileopener" data-file="TODO.md" data-line="0"
-              >TODO</span> for next steps!
-          </p>
-          <!--  🚧 TODO: ADD BUTTON HERE -->
-
-          <!-- Once you've added the button from TODO.md, click it in the page -->
-          <!-- Check out the function in script.js to see how it works -->
+<div class="container">
+    <h2>Eicher Sure Liquidation</h2>
+    <h4>Managed by Shivansh Upadhyay</h4>
+    
+    <label>Vehicle Number (Reg. No)</label>
+    <input type="text" id="regNo" placeholder="Ex: UP32 AB 1234" required>
+    
+    <div class="form-row">
+        <div class="form-group">
+            <label>Make</label>
+            <input type="text" id="make" placeholder="Ex: Eicher" required>
         </div>
-      </div>
+        <div class="form-group">
+            <label>Model</label>
+            <input type="text" id="model" placeholder="Ex: Pro 2049" required>
+        </div>
     </div>
-    <!-- The footer holds our remix button — you can keep or delete it ✂ -->
-    <footer class="footer">
-      <div class="links"></div>
-      <a
-        class="btn--remix"
-        target="_top"
-        href="https://glitch.com/edit/#!/remix/glitch-hello-website"
-      >
-        <img
-          src="https://cdn.glitch.com/605e2a51-d45f-4d87-a285-9410ad350515%2FLogo_Color.svg?v=1618199565140"
-          alt=""
-        />
-        Remix on Glitch
-      </a>
-    </footer>
-  </body>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Mfg Year</label>
+            <input type="number" id="mfg" placeholder="Ex: 2019" required>
+        </div>
+        <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" id="qty" placeholder="Ex: 1" value="1">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>Tyre %</label>
+            <input type="text" id="tyre" placeholder="Ex: 70%">
+        </div>
+        <div class="form-group">
+            <label>Body Type</label>
+            <input type="text" id="body" placeholder="Ex: Open / Container">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label>HPA (Bank Finance)</label>
+            <input type="text" id="hpa" placeholder="Ex: HDFC / None">
+        </div>
+        <div class="form-group">
+            <label>GST</label>
+            <select id="gst">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
+        </div>
+    </div>
+
+    <label>Location</label>
+    <input type="text" id="location" placeholder="Ex: Lucknow">
+
+    <label>Insurance / Tax / Permit Status</label>
+    <input type="text" id="rtoDetails" placeholder="Ex: Valid till Dec 2026">
+    
+    <div class="photo-upload">
+        <label style="color: #e31837; margin-top: 0;">Upload Photos (Max 5)</label>
+        <input type="file" id="photos" accept="image/*" multiple>
+        <small style="color: #666;">Aap gallery se ek sath 4-5 photo select kar sakte hain.</small>
+    </div>
+    
+    <button onclick="shareDetails()">Share Details with Photos 🚀</button>
+</div>
+
+<script>
+    async function shareDetails() {
+        const regNo = document.getElementById('regNo').value;
+        const make = document.getElementById('make').value;
+        const model = document.getElementById('model').value;
+        const mfg = document.getElementById('mfg').value;
+        const qty = document.getElementById('qty').value;
+        const tyre = document.getElementById('tyre').value;
+        const body = document.getElementById('body').value;
+        const hpa = document.getElementById('hpa').value;
+        const gst = document.getElementById('gst').value;
+        const location = document.getElementById('location').value;
+        const rtoDetails = document.getElementById('rtoDetails').value;
+        const photosInput = document.getElementById('photos');
+
+        if(!regNo || !make || !model) {
+            alert("Kripya Make, Model aur Reg No. zaroor bharein!");
+            return;
+        }
+
+        const message = `🚚 *USED COMMERCIAL VEHICLE FOR SALE* 🚚\n\n` +
+                        `🔹 *Make:* ${make}\n` +
+                        `🔹 *Model:* ${model}\n` +
+                        `📅 *Mfg Year:* ${mfg}\n` +
+                        `🔖 *Registration:* ${regNo}\n` +
+                        `📦 *Quantity:* ${qty}\n` +
+                        `🛞 *Tyre Condition:* ${tyre}\n` +
+                        `🚛 *Body:* ${body}\n` +
+                        `🏦 *HPA:* ${hpa}\n` +
+                        `🧾 *GST:* ${gst}\n` +
+                        `📍 *Location:* ${location}\n` +
+                        `📄 *Docs (Ins/Tax/Permit):* ${rtoDetails}\n\n` +
+                        `📞 Contact for deal!`;
+
+        let shareData = {
+            title: 'Used Truck For Sale',
+            text: message
+        };
+
+        // Agar photos select ki gayi hain
+        if (photosInput.files.length > 0) {
+            const filesArray = [];
+            for (let i = 0; i < photosInput.files.length; i++) {
+                filesArray.push(photosInput.files[i]);
+            }
+            
+            // Check karna ki phone photo share support karta hai ya nahi
+            if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+                shareData.files = filesArray;
+            } else {
+                alert("Aapka browser in photos ko direct share karna support nahi karta. Text share ho jayega, photos manual bhejni padengi.");
+            }
+        }
+
+        if (navigator.share) {
+            try {
+                await navigator.share(shareData);
+                console.log('Details shared successfully!');
+            } catch (err) {
+                console.error('Error sharing:', err);
+            }
+        } else {
+            navigator.clipboard.writeText(message);
+            alert("Details copy ho gayi hain! Aap ise WhatsApp par paste kar sakte hain.");
+        }
+    }
+</script>
+
+</body>
 </html>
