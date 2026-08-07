@@ -21,13 +21,18 @@
         
         label { font-weight: bold; margin-top: 10px; display: block; color: #333; font-size: 13px; }
         input, select { width: 100%; padding: 10px; margin: 5px 0 10px 0; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-size: 14px;}
+        input[type="date"] { font-family: inherit; }
         
         .btns { display: flex; gap: 10px; margin-top: 20px; }
         button { flex: 1; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; color: white; font-size: 15px; transition: 0.2s; }
         .primary-btn { background-color: #e31837; width: 100%; margin-bottom: 15px; }
         .secondary-btn { background-color: #343a40; width: 100%; }
         .back-btn { background-color: #6c757d; }
-        .whatsapp-btn { background-color: #25D366; width: 100%; margin-bottom:15px; }
+        
+        /* 5 Exact Share Buttons */
+        .wa-btn { background-color: #25D366; width: 100%; margin-bottom:10px; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; text-align: left; padding-left: 20px;}
+        .fb-btn { background-color: #1877F2; width: 100%; margin-bottom:10px; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; text-align: left; padding-left: 20px;}
+        .olx-btn { background-color: #002f34; width: 100%; margin-bottom:20px; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; text-align: left; padding-left: 20px;}
         
         .menu-btn { display: block; width: 100%; padding: 15px; text-align: left; background: #fff; border: 2px solid #eee; border-radius: 12px; margin-bottom: 15px; font-size: 15px; font-weight: bold; color: #333; box-shadow: 0 2px 5px rgba(0,0,0,0.05); cursor:pointer;}
         .menu-btn span { font-size: 22px; margin-right: 10px; vertical-align: middle; }
@@ -76,7 +81,7 @@
         <button class="menu-btn" onclick="openRtoScanner()" style="border-color: #ff9800;"><span>📱</span> <b>mParivahan AI Scanner</b><br><small style="color: #f57c00; font-size: 12px;">Calculate RTO dues</small></button>
     </div>
 
-    <!-- ================= FULL WIZARD (RESTORED) ================= -->
+    <!-- ================= FULL WIZARD ================= -->
     <div id="wizardStep1" class="screen">
         <h3 style="text-align: center; color: #e31837;">Step 1: Basic Info</h3>
         <label>Make</label>
@@ -97,7 +102,7 @@
     </div>
 
     <div id="wizardStep2" class="screen">
-        <h3 style="text-align: center; color: #e31837;">Step 2: Condition</h3>
+        <h3 style="text-align: center; color: #e31837;">Step 2: Condition & Documents</h3>
         <label>Engine Condition</label>
         <select id="w_engine"><option>Excellent (Sealed)</option><option>Good (Minor repair)</option><option>Average (Overhauled)</option><option>Poor (Needs work)</option></select>
         <label>Tyre Condition (%)</label>
@@ -109,6 +114,25 @@
         <label>Battery</label>
         <select id="w_battery"><option>New / In Warranty</option><option>Working Good</option><option>Weak</option><option>Dead / Missing</option></select>
 
+        <!-- NEWLY ADDED DOCUMENT EXPIRY DATES -->
+        <h4 style="margin-top:20px; text-align:left; color:#e31837; border-bottom:2px solid #eee; padding-bottom:5px;">Document Validity (Last Date)</h4>
+        
+        <label>Fitness Expiry Date</label>
+        <input type="date" id="w_fit">
+        
+        <label>Tax Expiry Date</label>
+        <input type="date" id="w_tax">
+        
+        <label>Insurance Expiry Date</label>
+        <input type="date" id="w_ins">
+        
+        <label>S Permit Expiry Date</label>
+        <input type="date" id="w_sper">
+        
+        <label>N Permit Expiry Date</label>
+        <input type="date" id="w_nper">
+        <!-- ================================== -->
+
         <div class="btns">
             <button class="back-btn" onclick="showScreen('wizardStep1')">← Back</button>
             <button class="primary-btn" onclick="generateSummary()">Review & Share →</button>
@@ -117,9 +141,14 @@
 
     <div id="wizardStep3" class="screen">
         <h3 style="text-align: center; color: #e31837;">Step 3: Share Details</h3>
-        <textarea id="finalMessage" rows="12" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; font-size:13px;"></textarea>
+        <textarea id="finalMessage" rows="10" style="width:100%; padding:10px; border-radius:8px; border:1px solid #ccc; font-size:13px; margin-bottom: 10px;"></textarea>
         
-        <button class="whatsapp-btn" style="margin-top:15px;" onclick="shareOnWhatsApp()">💬 Share on WhatsApp</button>
+        <!-- THE 5 EXACT REQUESTED OPTIONS -->
+        <button class="wa-btn" onclick="shareWhatsApp()">1. 📱 WhatsApp Status</button>
+        <button class="wa-btn" onclick="shareWhatsApp()">2. 👥 WhatsApp Groups</button>
+        <button class="wa-btn" onclick="shareWhatsApp()">3. 💬 WhatsApp Personal Message</button>
+        <button class="fb-btn" onclick="shareMarketplace('facebook')">4. 🏪 Facebook Marketplace</button>
+        <button class="olx-btn" onclick="shareMarketplace('olx')">5. 🛒 OLX</button>
         
         <div class="btns" style="margin-top:0;">
             <button class="back-btn" onclick="showScreen('wizardStep2')">← Edit</button>
@@ -128,7 +157,7 @@
     </div>
     <!-- ========================================================== -->
 
-    <!-- ================= HISTORY SCREEN (RESTORED) ================= -->
+    <!-- ================= HISTORY SCREEN ================= -->
     <div id="historyScreen" class="screen">
         <h3 style="text-align: center;">📂 Your Saved Vehicles</h3>
         <div id="historyList" style="max-height: 60vh; overflow-y: auto;"></div>
@@ -165,8 +194,7 @@
         <div id="photoSection" style="display:none; margin-top: 20px; border-top: 2px solid #eee; padding-top: 15px;">
             <p style="font-size: 13px; font-weight: bold; text-align: center;">For Better Accuracy, Upload 4 Photos</p>
             
-            <!-- REAL HIDDEN FILE UPLOADER FOR CAMERA/GALLERY -->
-            <input type="file" id="realPhotoInput" accept="image/*" capture="environment" style="display:none;" onchange="handlePhotoUpload()">
+            <input type="file" id="realPhotoInput" accept="image/*" style="display:none;" onchange="handlePhotoUpload()">
             
             <div class="photo-upload-grid">
                 <div class="upload-box" id="boxFront" onclick="triggerPhotoBox(this)">📷 Front</div>
@@ -190,7 +218,6 @@
     <!-- ================= RTO SCANNER ================= -->
     <div id="rtoScannerScreen" class="screen">
         <h3 style="text-align: center; color: #ff9800;">mParivahan Scanner</h3>
-        <!-- REAL HIDDEN FILE UPLOADER FOR SCANNER -->
         <input type="file" id="rtoPhotoInput" accept="image/*" style="display:none;" onchange="runOCR()">
         
         <div class="upload-area" id="uploadArea" onclick="document.getElementById('rtoPhotoInput').click()">
@@ -218,7 +245,7 @@
         <div id="rtoResult" class="rto-bill">
             <h3 style="text-align:center; color:#856404; margin:0 0 10px 0;">⚠️ Estimated RTO Dues</h3>
             <div id="rtoBreakdown" style="font-size: 13px; line-height: 1.6; color: #333;"></div>
-            <button id="rtoShareBtn" class="whatsapp-btn" style="margin-top:15px;" onclick="shareRtoMessage()">💬 Share Alert</button>
+            <button class="wa-btn" style="margin-top:15px; text-align:center; padding:12px;" onclick="shareRtoWhatsApp()">💬 Share Alert on WhatsApp</button>
         </div>
 
         <button class="back-btn" style="width: 100%; margin-top: 15px;" onclick="goHome()">🏠 Back to Menu</button>
@@ -226,7 +253,6 @@
 
 </div>
 
-<!-- Service Worker Registration -->
 <script>
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -236,7 +262,6 @@
 </script>
 
 <script>
-    // System Init
     window.onload = function() {
         if(localStorage.getItem('es_name')) {
             document.getElementById('welcomeUser').innerText = "Welcome, " + localStorage.getItem('es_name');
@@ -260,6 +285,13 @@
         document.getElementById(id).classList.add('active-screen');
     }
     function goHome() { showScreen('menuScreen'); }
+    
+    // Date Formatter (YYYY-MM-DD to DD-MM-YYYY)
+    function fmtDate(d) {
+        if(!d) return 'N/A';
+        let parts = d.split('-');
+        return parts[2] + '-' + parts[1] + '-' + parts[0];
+    }
 
     // --- FULL WIZARD LOGIC ---
     function generateSummary() {
@@ -275,6 +307,13 @@
         let cabin = document.getElementById('w_cabin').value;
         let body = document.getElementById('w_body').value;
         let battery = document.getElementById('w_battery').value;
+        
+        // Fetching Document Dates
+        let fitDate = fmtDate(document.getElementById('w_fit').value);
+        let taxDate = fmtDate(document.getElementById('w_tax').value);
+        let insDate = fmtDate(document.getElementById('w_ins').value);
+        let sperDate = fmtDate(document.getElementById('w_sper').value);
+        let nperDate = fmtDate(document.getElementById('w_nper').value);
 
         let msg = `🚛 *USED COMMERCIAL VEHICLE FOR SALE* 🚛\n\n` +
                   `*Vehicle Details:*\n` +
@@ -288,204 +327,12 @@
                   `💺 Cabin: ${cabin}\n` +
                   `🏗️ Load Body: ${body}\n` +
                   `🔋 Battery: ${battery}\n\n` +
+                  `*📑 Document Validity:*\n` +
+                  `• Fitness: ${fitDate}\n` +
+                  `• Tax: ${taxDate}\n` +
+                  `• Insurance: ${insDate}\n` +
+                  `• S Permit: ${sperDate}\n` +
+                  `• N Permit: ${nperDate}\n\n` +
                   `👤 Shared by: ${name} (via Eicher Sure Portal)`;
         
-        document.getElementById('finalMessage').value = msg;
-        showScreen('wizardStep3');
-    }
-
-    function shareOnWhatsApp() {
-        let text = encodeURIComponent(document.getElementById('finalMessage').value);
-        window.open('https://api.whatsapp.com/send?text=' + text, '_blank');
-    }
-
-    function saveToHistory() {
-        let history = JSON.parse(localStorage.getItem('es_history')) || [];
-        history.unshift({
-            title: document.getElementById('w_make').value + " " + document.getElementById('w_model').value,
-            year: document.getElementById('w_year').value,
-            reg: document.getElementById('w_reg').value,
-            price: document.getElementById('w_price').value
-        });
-        localStorage.setItem('es_history', JSON.stringify(history));
-        
-        // Reset form
-        document.querySelectorAll('input').forEach(i => { if(i.id.startsWith('w_')) i.value = ''; });
-        alert("Vehicle saved successfully!");
-        goHome();
-    }
-
-    // --- VIEW HISTORY LOGIC ---
-    function openHistory() {
-        let history = JSON.parse(localStorage.getItem('es_history')) || [];
-        let list = document.getElementById('historyList');
-        list.innerHTML = "";
-        
-        if(history.length === 0) {
-            list.innerHTML = "<p style='text-align:center; color:#888;'>No vehicles saved yet.</p>";
-        } else {
-            history.forEach(item => {
-                list.innerHTML += `<div class="history-card">
-                    <h5>${item.title} (Year: ${item.year})</h5>
-                    <p>Reg No: ${item.reg} | Price: ₹${Number(item.price).toLocaleString('en-IN')}</p>
-                </div>`;
-            });
-        }
-        showScreen('historyScreen');
-    }
-
-    // --- AI VALUATION LOGIC ---
-    let currentValVehicle = null;
-    let baseCalculatedPrice = 0;
-    let photosUploaded = 0;
-    let currentClickedBox = null;
-
-    function openValuation() {
-        const list = document.getElementById('valHistoryList');
-        let history = JSON.parse(localStorage.getItem('es_history')) || [];
-        list.innerHTML = "";
-        
-        if(history.length === 0) {
-            list.innerHTML = "<p style='text-align:center; color:#888;'>Pehle 'Create New Post' se gaadi save karein.</p>";
-        } else {
-            history.forEach((item, index) => {
-                list.innerHTML += `<div class="history-card" onclick="startValuation(${index})">
-                    <h5>${item.title} (${item.year})</h5>
-                    <p>Reg: ${item.reg}</p>
-                </div>`;
-            });
-        }
-        showScreen('valuationSelectorScreen');
-    }
-
-    function startValuation(index) {
-        let history = JSON.parse(localStorage.getItem('es_history'));
-        currentValVehicle = history[index];
-        document.getElementById('vTitle').innerText = currentValVehicle.title;
-        document.getElementById('vYear').innerText = currentValVehicle.year;
-        document.getElementById('vReg').innerText = currentValVehicle.reg;
-        
-        // Reset screens
-        document.getElementById('baseResult').style.display = 'none';
-        document.getElementById('photoSection').style.display = 'none';
-        document.getElementById('finalResult').style.display = 'none';
-        photosUploaded = 0;
-        document.querySelectorAll('.upload-box').forEach(b => { 
-            b.innerText = b.innerText.replace('✅ ', ''); 
-            b.style.borderColor = '#ccc'; 
-        });
-        showScreen('valuationProcessScreen');
-    }
-
-    function calculateBasePrice() {
-        let newPrice = document.getElementById('newPriceInput').value;
-        if(!newPrice) { alert("Pehle nayi gaadi ka price dalein!"); return; }
-        
-        let mfgYear = parseInt(currentValVehicle.year);
-        let currentYear = new Date().getFullYear(); 
-        let age = currentYear - mfgYear;
-        if(age < 0) age = 0;
-        
-        let depPercent = (age <= 0) ? 10 : (age === 1) ? 20 : (age === 2) ? 30 : (age === 3) ? 40 : (age === 4) ? 50 : 50 + ((age - 4) * 6);
-        if(depPercent > 85) depPercent = 85; 
-
-        baseCalculatedPrice = newPrice - (newPrice * (depPercent / 100));
-        document.getElementById('basePriceOutput').innerText = "₹" + Math.round(baseCalculatedPrice).toLocaleString('en-IN');
-        
-        let hindiMsg = `<b>🤖 AI विश्लेषण:</b> चूँकि यह गाड़ी <b>${age} साल</b> पुरानी है, इसलिए मार्केट के नियमानुसार नई गाड़ी की कीमत के मुकाबले इसकी वैल्यू में <b>${depPercent}%</b> की गिरावट आई है।`;
-        document.getElementById('aiExplanation').innerHTML = hindiMsg;
-        document.getElementById('baseResult').style.display = 'block';
-        document.getElementById('photoSection').style.display = 'block';
-    }
-
-    // REAL FILE UPLOAD TRIGGER
-    function triggerPhotoBox(box) {
-        currentClickedBox = box;
-        document.getElementById('realPhotoInput').click(); // Opens Gallery/Camera
-    }
-
-    function handlePhotoUpload() {
-        let fileInput = document.getElementById('realPhotoInput');
-        if(fileInput.files.length > 0 && currentClickedBox) {
-            if(!currentClickedBox.innerText.includes('✅')) {
-                currentClickedBox.innerText = "✅ " + currentClickedBox.innerText;
-                currentClickedBox.style.borderColor = "#28a745";
-                photosUploaded++;
-            }
-            if(photosUploaded >= 4) { document.getElementById('aiBtn').style.display = 'block'; }
-        }
-    }
-
-    function runAIAnalysis() {
-        document.getElementById('aiBtn').style.display = 'none';
-        document.getElementById('aiLoader').style.display = 'block';
-        
-        setTimeout(() => {
-            document.getElementById('aiLoader').style.display = 'none';
-            let adjustment = (Math.random() * 8) - 3; 
-            let finalAIPrice = baseCalculatedPrice + (baseCalculatedPrice * (adjustment / 100));
-            document.getElementById('finalPriceOutput').innerText = "₹" + Math.round(finalAIPrice).toLocaleString('en-IN');
-            
-            let photoHindi = (adjustment > 0) 
-                ? `<b>📸 फोटो रिजल्ट:</b> तस्वीरों के आधार पर कंडीशन अच्छी है। इसलिए बेस प्राइस में <b>${adjustment.toFixed(1)}%</b> की बढ़ोतरी की गई है।`
-                : `<b>📸 फोटो रिजल्ट:</b> तस्वीरों के आधार पर थोड़ा काम दिख रहा है। इसलिए बेस प्राइस में <b>${Math.abs(adjustment).toFixed(1)}%</b> की कटौती की गई है।`;
-            
-            document.getElementById('aiPhotoExplanation').innerHTML = photoHindi;
-            document.getElementById('finalResult').style.display = 'block';
-        }, 2000);
-    }
-
-    // --- RTO SCANNER LOGIC ---
-    let finalRtoMsg = "";
     
-    function openRtoScanner() {
-        showScreen('rtoScannerScreen');
-        document.getElementById('rtoDetailsForm').style.display = 'none';
-        document.getElementById('rtoResult').style.display = 'none';
-        document.getElementById('uploadArea').innerHTML = '<span style="font-size: 30px;">📸</span><br><b>Click to Upload mParivahan Screenshot</b>';
-    }
-
-    function runOCR() {
-        let file = document.getElementById('rtoPhotoInput').files[0];
-        if(file) {
-            document.getElementById('uploadArea').innerHTML = '<span style="font-size: 30px;">✅</span><br><b>Screenshot Uploaded</b>';
-            document.getElementById('ocrLoader').style.display = 'block';
-            
-            setTimeout(() => {
-                document.getElementById('ocrLoader').style.display = 'none';
-                document.getElementById('rtoDetailsForm').style.display = 'block';
-                document.getElementById('rtoRegNo').value = "UP"; 
-            }, 1500);
-        }
-    }
-
-    function calculateRtoDues() {
-        let size = document.getElementById('rtoVehSize').value;
-        let total = 0;
-        let html = "", msg = "";
-        
-        let costs = { LCV: { f:3500, t:5000, i:18000, p:3000 }, HCV: { f:5500, t:12000, i:35000, p:6000 } };
-        let c = costs[size];
-        let hasDoc = false;
-
-        if(document.getElementById('chkFitness').checked) { total += c.f; html += `- Fitness: ₹${c.f}<br>`; msg += `🔸 Fitness: ~₹${c.f}\n`; hasDoc=true;}
-        if(document.getElementById('chkTax').checked) { total += c.t; html += `- Road Tax: ₹${c.t}<br>`; msg += `🔸 Road Tax: ~₹${c.t}\n`; hasDoc=true;}
-        if(document.getElementById('chkIns').checked) { total += c.i; html += `- Insurance: ₹${c.i}<br>`; msg += `🔸 Insurance: ~₹${c.i}\n`; hasDoc=true;}
-        if(document.getElementById('chkPermit').checked) { total += c.p; html += `- Permit: ₹${c.p}<br>`; msg += `🔸 Permit: ~₹${c.p}\n`; hasDoc=true;}
-
-        if(!hasDoc) { alert("Please select an expired document!"); return; }
-
-        html += `<hr><b style='color:#e31837;'>Total Approx: ₹${total.toLocaleString('en-IN')}</b>`;
-        finalRtoMsg = `⚠️ *RTO PENDING DUES* ⚠️\n🚛 Reg No: ${document.getElementById('rtoRegNo').value}\n\n${msg}\n💰 *Total Approx: ₹${total.toLocaleString('en-IN')}*`;
-        
-        document.getElementById('rtoBreakdown').innerHTML = html;
-        document.getElementById('rtoResult').style.display = 'block';
-    }
-
-    function shareRtoMessage() {
-        window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(finalRtoMsg), '_blank');
-    }
-</script>
-
-</body>
-</html>
