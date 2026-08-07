@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eicher Sure App</title>
     <meta name="theme-color" content="#e31837">
+    
+    <!-- Link to Real App Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/192/713/713311.png">
+    
     <style>
         body { font-family: 'Segoe UI', Arial, sans-serif; padding: 15px; background-color: #f4f4f9; margin: 0; }
         .container { max-width: 450px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); min-height: 80vh; }
@@ -37,7 +42,6 @@
         .photo-upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
         .upload-box { border: 2px dashed #ccc; padding: 20px 0; text-align: center; border-radius: 8px; font-size: 12px; color: #888; cursor: pointer; background: #fafafa;}
         
-        /* AI Hindi Explanation Box */
         .ai-explain-box { margin-top: 15px; font-size: 13px; color: #333; background: #fff; padding: 12px; border-radius: 8px; border-left: 4px solid #e31837; text-align: left; line-height: 1.5; box-shadow: 0 2px 4px rgba(0,0,0,0.05);}
         
         .checkbox-group { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
@@ -52,6 +56,7 @@
     <h2>Eicher Sure</h2>
     <h4 id="welcomeUser">Liquidation Portal</h4>
 
+    <!-- Profile Screen -->
     <div id="profileScreen" class="screen">
         <h3 style="text-align: center;">👤 Setup your Profile</h3>
         <label>Your Full Name</label>
@@ -61,6 +66,7 @@
         <button class="primary-btn" onclick="saveProfile()">Save & Continue →</button>
     </div>
 
+    <!-- Main Menu -->
     <div id="menuScreen" class="screen active-screen">
         <button class="menu-btn" onclick="openWizard()"><span>📝</span> <b>Create New Post</b><br><small style="color: #666; font-size: 12px;">Gaadi ki detail banayein aur share karein</small></button>
         <button class="menu-btn" onclick="openHistory()"><span>📂</span> <b>View History</b><br><small style="color: #666; font-size: 12px;">Purani share ki hui gaadiyan dekhein</small></button>
@@ -68,7 +74,7 @@
         <button class="menu-btn" onclick="openRtoScanner()" style="border-color: #ff9800;"><span>📱</span> <b>mParivahan AI Scanner</b><br><small style="color: #f57c00; font-size: 12px;">RTO pending cost nikalein</small></button>
     </div>
 
-    <!-- Quick Wizard -->
+    <!-- Quick Wizard Screen -->
     <div id="wizardScreen" class="screen">
         <h3 style="text-align: center;">Add New Vehicle</h3>
         <label>Make & Model</label>
@@ -92,7 +98,7 @@
         </div>
     </div>
 
-    <!-- Valuation Option (Screen 4 & 5) -->
+    <!-- Valuation Screen -->
     <div id="valuationSelectorScreen" class="screen">
         <h3 style="text-align: center;">📊 Select Vehicle for Valuation</h3>
         <div id="valHistoryList" style="max-height: 400px; overflow-y: auto;"></div>
@@ -109,15 +115,12 @@
 
         <label>New Vehicle Ex-Showroom Price (₹)</label>
         <input type="number" id="newPriceInput" placeholder="Nayi gaadi ka price dalein (Ex: 1500000)">
-        
         <button class="primary-btn" style="margin-top:10px;" onclick="calculateBasePrice()">1. Calculate Base Price</button>
 
         <div id="baseResult" class="val-result">
             <p style="margin:0; font-size:12px; color:#555;" id="depText"></p>
             <h3 id="basePriceOutput">₹0</h3>
             <small style="color: #e31837; font-weight: bold;">(Price Per Vehicle)</small>
-            
-            <!-- AI HINDI EXPLANATION BOX -->
             <div id="aiExplanation" class="ai-explain-box"></div>
         </div>
 
@@ -131,7 +134,6 @@
             </div>
             
             <div id="aiLoader" class="loader">⏳ AI Analyzing Photos... Please wait.</div>
-            
             <button id="aiBtn" class="primary-btn" style="margin-top:15px; background: #28a745; display:none;" onclick="runAIAnalysis()">2. Run AI Photo Analysis</button>
 
             <div id="finalResult" class="val-result" style="background:#e3f2fd; border-color:#90caf9;">
@@ -140,11 +142,10 @@
                 <div id="aiPhotoExplanation" class="ai-explain-box" style="border-color: #1565c0; background: #fff;"></div>
             </div>
         </div>
-
         <div class="btns"><button class="back-btn" onclick="openValuation()">← Back to List</button></div>
     </div>
 
-    <!-- RTO Scanner (Screen 6) Omitted HTML for brevity but kept in script functionality -->
+    <!-- RTO Scanner Screen -->
     <div id="rtoScannerScreen" class="screen">
         <h3 style="text-align: center; color: #ff9800;">mParivahan Scanner</h3>
         <label for="mparivahanUpload" class="upload-area" id="uploadArea"><span style="font-size: 30px;">📸</span><br><b>Upload Screenshot</b></label>
@@ -152,6 +153,17 @@
     </div>
 
 </div>
+
+<!-- Service Worker Registration -->
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then((reg) => console.log('Service worker registered.', reg))
+                .catch((err) => console.log('Service worker not registered.', err));
+        });
+    }
+</script>
 
 <script>
     window.onload = function() {
@@ -194,7 +206,7 @@
         goHome();
     }
 
-    // --- AI VALUATION LOGIC WITH HINDI EXPLANATION ---
+    // AI Valuation Logic
     let currentValVehicle = null;
     let baseCalculatedPrice = 0;
     let photosUploaded = 0;
@@ -212,11 +224,9 @@
     function startValuation(index) {
         let history = JSON.parse(localStorage.getItem('es_history'));
         currentValVehicle = history[index];
-        
         document.getElementById('vTitle').innerText = currentValVehicle.title;
         document.getElementById('vYear').innerText = currentValVehicle.mfg;
         document.getElementById('vQty').innerText = currentValVehicle.qty;
-        
         document.getElementById('baseResult').style.display = 'none';
         document.getElementById('photoSection').style.display = 'none';
         document.getElementById('finalResult').style.display = 'none';
@@ -247,22 +257,18 @@
         }
 
         baseCalculatedPrice = newPrice - (newPrice * (depPercent / 100));
-        
         document.getElementById('basePriceOutput').innerText = "₹" + Math.round(baseCalculatedPrice).toLocaleString('en-IN');
         
-        // HINDI AI EXPLANATION GENERATION
         let hindiMsg = `<b>🤖 AI विश्लेषण:</b> चूँकि यह गाड़ी <b>${age} साल</b> पुरानी है, इसलिए कमर्शियल मार्केट के नियमानुसार नई गाड़ी की कीमत के मुकाबले इसकी वैल्यू में <b>${depPercent}%</b> की गिरावट (Depreciation) आई है। इसी वजह से प्रति गाड़ी इसकी कीमत <b>₹${Math.round(baseCalculatedPrice).toLocaleString('en-IN')}</b> तय की गई है।`;
 
         if (age >= 5) {
-            hindiMsg = `<b>🤖 AI विश्लेषण:</b> यह गाड़ी <b>${age} साल</b> पुरानी हो चुकी है। 5 साल से अधिक पुरानी कमर्शियल गाड़ियों की वैल्यू हर साल तेजी से गिरती है। इसलिए नई गाड़ी के मुकाबले इसकी मार्केट वैल्यू में <b>${depPercent}%</b> की भारी गिरावट (Depreciation) आई है। इसी वजह से इसकी कीमत <b>₹${Math.round(baseCalculatedPrice).toLocaleString('en-IN')}</b> लगाई गई है।`;
+            hindiMsg = `<b>🤖 AI विश्लेषण:</b> यह गाड़ी <b>${age} साल</b> पुरानी हो चुकी है। 5 साल से अधिक पुरानी कमर्शियल गाड़ियों की वैल्यू हर साल तेजी से गिरती है। इसलिए नई गाड़ी के मुकाबले इसकी मार्केट वैल्यू में <b>${depPercent}%</b> की भारी गिरावट (Depreciation) आई है।`;
         }
-        
         if (age === 0) {
-            hindiMsg = `<b>🤖 AI विश्लेषण:</b> यह गाड़ी इसी साल की है (0 साल पुरानी)। शोरूम से बाहर निकलते ही कमर्शियल गाड़ी की कीमत औसतन 10% कम हो जाती है। इसलिए इसकी कीमत <b>₹${Math.round(baseCalculatedPrice).toLocaleString('en-IN')}</b> आंकी गई है।`;
+            hindiMsg = `<b>🤖 AI विश्लेषण:</b> यह गाड़ी इसी साल की है (0 साल पुरानी)। शोरूम से बाहर निकलते ही कमर्शियल गाड़ी की कीमत औसतन 10% कम हो जाती है।`;
         }
 
         document.getElementById('aiExplanation').innerHTML = hindiMsg;
-
         document.getElementById('baseResult').style.display = 'block';
         document.getElementById('photoSection').style.display = 'block';
     }
@@ -282,14 +288,10 @@
         
         setTimeout(() => {
             document.getElementById('aiLoader').style.display = 'none';
-            
-            // Random adjust between -3% and +5%
             let adjustment = (Math.random() * 8) - 3; 
             let finalAIPrice = baseCalculatedPrice + (baseCalculatedPrice * (adjustment / 100));
-            
             document.getElementById('finalPriceOutput').innerText = "₹" + Math.round(finalAIPrice).toLocaleString('en-IN');
             
-            // Photo Analysis Hindi Explanation
             let photoHindi = "";
             if(adjustment > 0) {
                 photoHindi = `<b>📸 फोटो स्कैन रिजल्ट:</b> तस्वीरों के आधार पर गाड़ी की बॉडी और टायर की कंडीशन अच्छी लग रही है। इसलिए बेस प्राइस में <b>${adjustment.toFixed(1)}%</b> की बढ़ोतरी की गई है।`;
