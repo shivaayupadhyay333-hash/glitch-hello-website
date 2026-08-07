@@ -1,0 +1,22 @@
+{
+  "name": "Eicher Sure Portal",
+  "short_name": "Eicher Sure",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f4f9",
+  "theme_color": "#e31837",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/192/713/713311.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/713/713311.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
